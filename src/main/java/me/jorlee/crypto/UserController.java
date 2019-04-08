@@ -77,9 +77,8 @@ public class UserController {
 				}
 			});
 			m.put("cash", (float) user.getDollars());
-
 			System.out.println(m);
-			results.put(user.getFirstName(), m);
+			results.put(String.valueOf(user.getId()), m);
 		});
 		return results;
 	}

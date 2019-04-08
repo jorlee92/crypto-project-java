@@ -1,7 +1,10 @@
 package me.jorlee.crypto;
 
+import javax.websocket.server.PathParam;
+
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +28,12 @@ public class TradeController {
 			, @RequestParam String last, @RequestParam String email, @RequestParam String password) {
 		User u = new User(first, last, email, password, 10000);
 		return userRepository.save(u);
+	}
+	
+	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)
+	public java.util.List<Trade> getByUser(@PathVariable("id") Integer id) {
+		User u = userRepository.findById(id).get();
+		return tradeRepository.findAllByUser(u);
 	}
 
 	@RequestMapping("/sample")
